@@ -6,6 +6,8 @@
 - https://a11ysupport.io/
 - https://design-system.service.gov.uk/
 - https://developer.mozilla.org/en-US/docs/Web/HTML/Element/dialog
+- https://www.youtube.com/watch?v=3aH--S3r9n4
+- Landmarks browser extension
 
 
 ## ARIA
@@ -44,3 +46,9 @@ Remember to transfer focus to the appropriate place when the modal is closed.
   <h2 tabindex="-1">Modal</h2>
 <div id="modalBottom" tabindex="0"></div>
 ```
+
+### Date pickers
+
+Think about where focus should go when you open a date picker, and how to select the month and the year, tabs to move between dotm and month, arrows for days.  Always give an alternative way to enter the date that avoid the date picker.
+See the training material for example.
+
