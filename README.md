@@ -8,11 +8,15 @@
 - https://developer.mozilla.org/en-US/docs/Web/HTML/Element/dialog
 - https://www.youtube.com/watch?v=3aH--S3r9n4
 - Landmarks browser extension
+- caniuse.com
+- NVDA screen reader software
+- Dragon naturally speaking (Windows voice recognition software) (or Voice control for mac)
+- https://www.w3.org/WAI/demos/bad/
 
 
 ## ARIA
 
-Only use if you _have to_, prefer native browser behaviour on HTML elements.  If you have to use ARIA, look up the neccessary ARIA requirements to ensure screenreader use.
+Only use if you _have to_, prefer native browser behaviour on HTML elements.  If you have to use ARIA, look up the neccessary ARIA requirements to ensure screenreader use. Aria-live is perhaps an exception, as this is the way to let screenreaders know something on a dynamic page has changed.
 
 ## Keyboard accessibility
 
@@ -20,8 +24,7 @@ Make sure you can navigate the entire functionality with a keyboard only, and wa
 Ensure focus is visible and clear.  Using sticky or fixed position can hide elements so use scroll margin top/bottom to avoid that.
 Make sure native focus design works with your website design.
 Think about focus should go when you close a modal (eg. cookies consent).
-If you are using onclick, you might also need on key up 
-if you use onclick events you will need to also use `onkeyup` to make it work for a keyboard
+if you use `onclick` events you will need to also use `onkeyup` to make it work for a keyboard
 
 ### Tab index
 
@@ -52,3 +55,57 @@ Remember to transfer focus to the appropriate place when the modal is closed.
 Think about where focus should go when you open a date picker, and how to select the month and the year, tabs to move between dotm and month, arrows for days.  Always give an alternative way to enter the date that avoid the date picker.
 See the training material for example.
 
+-----
+
+## Forms and screenreaders
+
+Make forms easy to use, let users known whats required of them, and give the user feedback.
+Screen readers (automatically) interact with forms in forms mode as opposed to browse mode. The tab key moves focus between input fields, many users don't exit to browse mode to escape a form.
+
+If people will need reference information (eg passport number) tell them upfront.
+
+### Labels
+
+Without `<label>` a screen reader isn't going to read the form field. Using a label will also expand the clickable area of the input field.
+Checkbox & radio buttons need the label after the input, all other input types have the label first.
+
+The title attribute should be avoided on inputs. placeholder text is not a label.
+
+### Beware `select multiple`
+
+This input type requires both mouse and keyboard, so it's not natively accessible. Use something like checkboxes instead.
+
+### Links
+
+Avoid links in labels, the link will be part of the click target. It is preferred to have the link above and then the label & input after
+
+```html
+//prefer 
+<a href="">terms and conditions</a>
+<label...>
+  <input...>I have read the terms & conditions</input>
+</label>
+
+//avoid
+<a href="">terms and conditions</a>
+<label...>
+  <input...>I have read the <a href="">terms and conditions</a></input>
+</label>
+```
+
+### Hint text
+
+use `aria-describedby=""` to add a hint description to give hints, (eg 16 digit number...)
+
+```html
+<label>Membership number
+  <span id="cardhelp">8 digits</span>
+  <input ... aria-describedby="cardhelp"></input>
+</label>
+```
+
+### Grouping with fieldsets
+
+Esp for radios and checkboxes, contain the options in a `fieldset` with a `legend`. The legend needs to be the first child of the fieldset. This also will work for groupd of other inputs, eg first applicant, second applicant.
+
+Fieldsets can be nested but it's verbose for screenreaders so avoid it, and structure your data another way.
