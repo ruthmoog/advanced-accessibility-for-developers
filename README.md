@@ -12,6 +12,9 @@
 - NVDA screen reader software
 - Dragon naturally speaking (Windows voice recognition software) (or Voice control for mac)
 - https://www.w3.org/WAI/demos/bad/
+- https://www.deque.com/axe/devtools/
+- https://accessibilityinsights.io/
+- WAVE and AXE browser tools for checking
 
 
 ## ARIA
@@ -111,6 +114,9 @@ Provide context for the autocomplete to the broswer with `autocomplete="mobile t
 
 ### User feedback
 
+Avoid errors with context, description instructions, and clear calls to action. Allow users to go back and edit their form especially for forms relating to big ticket items.
+Confirm to the user when an event has happened successfully (eg submit, or document uploaded) and consider removing the form from the page, and moving focus to guide the user where to go next.10
+
 #### Hint text
 
 use `aria-describedby=""` to add a hint description to give hints, (eg 16 digit number...)
@@ -136,4 +142,33 @@ where problems are relating to the group of selections not the individual input.
 
 You can use a border to highlight the group. use the Error message with `aria-describedby` within the `fieldset`.
 
+## Custom controls & widgets
 
+Use native controls, and if you can;t research what aria controls you need to replicate to ensure they are working properly.
+
+### Navigating dropdown / flyout menus
+
+1. the menu & sub-menus are all tab throughable. works ok for short menus but not good for touch screen or speech recognition.
+2. tab though the top menues and use enter for the sub-menu where subsequent tabs with iterate through the sub-menu and then the next tab. good for complex menus but not good for linking the top level nav to actual pages (it cant be both a button and a nav). the menu should have a chevron etc to show there are sub-options. You need to use `aria-expanded="true"`
+**3.** use JS to add the expand button after each menu item with a sub-menu, tab through menu items and add additional items for the sub-menu that can be accessed with the enter key - this is the most accessible way. the downside is the extra tab stop
+
+#### Hambuger!!
+
+![ensure hamburger icon is properly labelled](https://github.com/ruthmoog/advanced-accessibility-for-developers/assets/33294286/01f90cf1-ff3e-427e-ab1e-c5347c6b11f1)
+
+### Tooptips
+
+Make tooltips accessible by using an accordian instead. Use details/summary or use `aria-expanded="false"` etc.
+
+### Tab headers
+
+It's preferred to tab through without auto changing the content, and using enter to refresh the content. We need to let the user know which tab is being shown, which is selected, and the content that belongs to the tab panel.
+Use `aria-expanded` and `style="display:block"` for the active and `style="display:none"` for the others.
+
+### Radios and Check boxes
+
+Use opacity 0 on the native radios etc, and style them so they're bigger and more interactive especially for touchscreens that need a larger tappable area.
+
+#### Select only comboboxes
+
+use a `listbox` for the list of selectable itmes. This will behave the same as a native select. Additionally this allows you to add non text options into your list, which doesnt come with the native.
