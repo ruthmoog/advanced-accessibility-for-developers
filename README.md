@@ -93,7 +93,25 @@ Avoid links in labels, the link will be part of the click target. It is preferre
 </label>
 ```
 
-### Hint text
+
+### Grouping with fieldsets
+
+Esp for radios and checkboxes, contain the options in a `fieldset` with a `legend`. The legend needs to be the first child of the fieldset. This also will work for groupd of other inputs, eg first applicant, second applicant.
+
+Fieldsets can be nested but it's verbose for screenreaders so avoid it, and structure your data another way.
+
+### Input types
+
+Some of the native error validation is not voiced by screenreaders <input type=""> but they can help, espe by displaying the right keyboard on touchscreen interfaces. Not all attributes are supported on mac. `date` and `range` are two danger-zone examples.
+
+### Autocomplete / autofil
+
+Autocomplete is useful! It's designed for your info, so use `autocomplete="off"` in the input to avoid suggesting your name on a 'partner's name` field etc.
+Provide context for the autocomplete to the broswer with `autocomplete="mobile tel"` - look up the acceptable values.
+
+### User feedback
+
+#### Hint text
 
 use `aria-describedby=""` to add a hint description to give hints, (eg 16 digit number...)
 
@@ -104,8 +122,18 @@ use `aria-describedby=""` to add a hint description to give hints, (eg 16 digit 
 </label>
 ```
 
-### Grouping with fieldsets
+#### Input errors
 
-Esp for radios and checkboxes, contain the options in a `fieldset` with a `legend`. The legend needs to be the first child of the fieldset. This also will work for groupd of other inputs, eg first applicant, second applicant.
+For desktop you can put a list of errors at the top of the page with anchors to focus the related input field. Use visual indication of errors, with icons - remember to test colour, and check your color contrast.
 
-Fieldsets can be nested but it's verbose for screenreaders so avoid it, and structure your data another way.
+For smaller screens you can add an aria-live of the number of submission errors, and move focus to the first error input field.
+
+Include the error message in the label input wrapper to have them associated with the label, otherwise use aria-describedby if that is not possible, and populate the span/para when there's an error.
+
+#### Error messages for fieldsets
+
+where problems are relating to the group of selections not the individual input.
+
+You can use a border to highlight the group. use the Error message with `aria-describedby` within the `fieldset`.
+
+
